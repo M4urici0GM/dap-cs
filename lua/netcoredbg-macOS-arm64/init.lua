@@ -85,9 +85,6 @@ M.setup = function(dap)
             processId = function()
                 return vim.fn.input("Process Id: ")
             end,
-            program = function()
-                return dotnet_get_dll_path()
-            end,
         },
     }
 end
