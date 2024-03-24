@@ -62,7 +62,6 @@ M.setup = function(dap)
             request = 'launch',
             cwd = '${fileDirname}',
             console = "integratedTerminal",
-            args = { "--interpreter=cli" },
             program = function()
                 if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
                     dotnet_build_project()
@@ -72,12 +71,23 @@ M.setup = function(dap)
             end,
             env = {
                 ASPNETCORE_ENVIRONMENT = function()
-                    return vim.fn.input("ASPNETCORE_ENVIRONMENT: ", "Development")
+                    return vim.fn.input("Environment: ", "Development")
                 end,
                 ASPNETCORE_URL = function()
-                    return vim.fn.input("ASPNETCORE_URL: ", "http://localhost:5000")
+                    return vim.fn.input("Endpoint: ", "http://localhost:4258")
                 end,
             }
+        },
+        {
+            type = 'coreclr',
+            name = 'NetCoreDbg: Attach',
+            request = 'attach',
+            processId = function()
+                return vim.fn.input("Process Id: ")
+            end,
+            program = function()
+                return dotnet_get_dll_path()
+            end,
         },
     }
 end
