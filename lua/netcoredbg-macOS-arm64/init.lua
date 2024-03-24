@@ -62,6 +62,7 @@ M.setup = function(dap)
             request = 'launch',
             cwd = '${fileDirname}',
             console = "integratedTerminal",
+            args = { "--interpreter=cli" },
             program = function()
                 if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
                     dotnet_build_project()
